@@ -1,4 +1,7 @@
 ---
+lang: fr
+permalink: /language-syntax.html
+layout: home
 ---
 # Langage de programmation CYK
 - Mobile ou Desktop
