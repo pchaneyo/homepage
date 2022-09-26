@@ -38,6 +38,10 @@ languages: ["fr", "en"]
 default_lang: "fr"
 parallel_localization: true
 
+# In Jekyll 4.0 , SCSS source maps will generate improperly due to how Polyglot operates.
+sass:
+  sourcemap: never
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
