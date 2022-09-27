@@ -1,7 +1,7 @@
 ---
 lang: fr
 permalink: /language-syntax.html
-layout: home
+layout: default
 ---
 # Langage de programmation CYK
 - Mobile ou Desktop
@@ -19,7 +19,7 @@ layout: home
   - [Déclaration de données primitives](#déclaration-de-données-primitives)
     - [Déclaration de `string` (chaine de caractères)](#déclaration-de-string-chaine-de-caractères)
       - [Exemples](#exemples)
-    - [Déclaration de `number` (nombre)](#déclaration-de-number-nombre)
+    - [Déclaration de nombre](#déclaration-de-nombre)
       - [Exemples](#exemples-1)
     - [Déclaration de `datatime`](#déclaration-de-datatime)
   - [Instructions de Contrôle](#instructions-de-contrôle)
@@ -59,8 +59,8 @@ layout: home
 | Elément | Description |
 |-------- |-------------|
 | `literal` | nom de commandes ou options à taper tel quel |
-| [ ] | les éléments optionnels sont entre crochets |
-| *italic* | un élément en italique est défini par une autre règle syntaxique |
+| [ ] | les éléments optionnels sont entre crochets. Les attributs optionnels sont encadrés par des crochets avec un fond différent |
+| normal | un élément défini par une autre règle syntaxique |
 | \| | la barre verticale sépare des éléments optionnels alternatifs exclusifs les uns des autres |
 | ... | les points de suspension indiquent que l'élément précédent peut être répété une ou plusieurs fois |
 | { } | les accolades regroupent les éléments situés entre elles en un seul élément pour appliquer un opérateur ... ou \| |
@@ -81,27 +81,29 @@ layout: home
 ## Déclaration de données primitives
 
 ### Déclaration de `string` (chaine de caractères)
-
- `<string` [ `name="`*identifier* `"` ] [ `literal=""` ]`>` *expression*  | *text_literal*  | `</string>`
-
+```xml
+<string [ name="identifier" ] [ literal="" ] > 
+  expression  | text_literal  | 
+</string>
+```
 - Si l'attribut `literal` est spécifié, le contenu de la balise n'est pas évalué en tant qu'expression mais considéré comme un texte litéral
 - Un contenu de balise vide est équivalent à la valeur `undefined`
 - La XML CDATA est acceptée
 - L'attribut `name` est facultatif : utile dans le cas de l'initialisation d'une liste de données anonymes
 
 #### Exemples ####
-```
+```xml
 <string name="person_1"> "John Doe" </string>
 <string name="person_2" literal="">John Doe</string>
 <string name="math_formula_1"> <![CDATA[ "x < y" ]]> </string>
 <string name="math_formula_2" literal=""> <![CDATA[ x < y ]]> </string>
 ```
-### Déclaration de `number` (nombre)
-
- `<number` [ `name="`*identifier* `"` ] `>` *expression*  | ` undefined` | `</number>`
-
-#### Exemples ####
+### Déclaration de nombre
+```xml
+<number [ name="identifier" ] > *expression* | undefined | </number>  
 ```
+#### Exemples ####
+```xml
 <number name="id"/>
 <number name="intvalue"> 12 </number>
 <number name="amount"> 10.25 </number>
@@ -114,36 +116,40 @@ layout: home
 
 ### Instruction Conditionelle
 
-*conditional_instruction :*
+*conditional_instruction :*   
 
-`<if>`   
-&emsp;`<condition>` *expression* `</condition>`   
-&emsp;`<then>`   
-&emsp;&emsp;*instruction* ...    
-&emsp;`</then>`   
-&emsp;[      
-&emsp;`<condition>` *expression* `</condition>`   
-&emsp;`<then>`   
-&emsp;&emsp; *instruction* ...  
-&emsp;`</then>`   
-&emsp;] ...   
-&emsp;[   
-&emsp;`<else>`   
-&emsp; *instruction* ...     
-&emsp;`</else>`  
-&emsp;]    
-`</if>`
+```xml
+<if>   
+  <condition> expression </condition>   
+  <then>  
+    instruction ...    
+  </then>  
+  [      
+  <condition> expression </condition>   
+  <then>   
+    instruction ...  
+  </then>   
+  ] ...   
+  [   
+  <else>   
+    instruction ...     
+  </else>  
+  ]    
+</if>
+```
 
 ### Instruction While
 
 *while_instruction :*
 
-`<while>`  
-&emsp;`<condition>` *expression* `</condition>`   
-&emsp;`<then>`   
-&emsp;&emsp;*instruction* ...   
-&emsp;`</then>`   
-`</while>`
+```xml
+<while>    
+  <condition> expression </condition>   
+  <then>   
+    instruction ...   
+  </then>  
+</while>
+```
 
 Sortie de boucle par `<break/>`
 Itération suivante par '<continue/>`
@@ -151,18 +157,19 @@ Itération suivante par '<continue/>`
 
 ### Instruction Loop
 *loop_instruction :* 
-
-`<loop>`   
-&emsp;*instruction* ...      
-`</loop>`
+```xml
+<loop>   
+  instruction ...      
+</loop>
+```
 
 ### Instruction break
 *break_instruction :*
-
-`<break>`   
-&emsp;[ *expression* ]   
-`</break>`
-
+```xml
+<break>   
+  [ expression ]   
+</break>
+```
 Si *expression* est présente, elle est évaluée
 Si le résultat est équivalent à VRAI, le programme quitte le bloc en cours
 Si *expression* est absente, le programme quitte le bloc en cours
@@ -170,25 +177,27 @@ Si *expression* est absente, le programme quitte le bloc en cours
 ## Instruction Affectation
 
 *set_instruction :*
+```xml
+<set name="identifier"> expression </set>
+<let name="identifier"> expression </let>
+```
 
-`<set name="`*identifier*`">` *expression* `</set>`
-
-
+Les noms de balise `set` et `let` ont la même signification
 ## Instruction Stringexec
 
-
-`<stringexec>` *expression* `</stringexec>`
-
+```xml
+<stringexec> expression </stringexec>
+```
 L'expression est évaluée en tant que chaine, puis considérée comme un texte de programme qui est exécuté
 
 
 ## Instruction Parallel
 
-
-`<parallel>`   
-&emsp;*instruction* ...     
-`</parallel>`
-
+```xml
+<parallel>   
+  instruction ...     
+</parallel>
+```
 Chaque instruction dans le bloc est exécuté en parallèle des autres.
 L'instruction `<parallel/>` se termine lorsque toutes les intrutions du bloc sont terminées.
 
@@ -196,25 +205,25 @@ L'instruction `<parallel/>` se termine lorsque toutes les intrutions du bloc son
 
 ### Function
 
-
-`<call function="`*identifier*`"` [ `returns="`*identifier* `: `*datatype*`" ] >`   
-&emsp;*declare_instruction* ...   
-`</call>`
-
+```xml
+<call function="identifier" [ returns="identifier : datatype" ] >   
+  declare_instruction ...   
+</call>
+```
 
 ### Methode d'Objet
-
-`<call object="` *identifier* `" method="`*identifier* `"` [ `returns="`*identifier* `: `*datatype*`"` ] `>`   
-&emsp;*declare_instruction* ...    
-`</call>`
-
+```xml
+<call object="identifier" method="identifier" [ returns="identifier : datatype" ] >   
+  declare_instruction ...    
+</call>
+```
 
 ### Méthode d'un Module
-
-`<call module="` *identifier* `" method="`*identifier* `"` [ `returns="`*identifier* `: `*datatype*`"` ] `>`   
-&emsp;*declare_instruction* ...    
-`</call>`
-
+```xml
+<call module="identifier" method="identifier" [ returns="identifier: datatype*" ] >   
+  declare_instruction ...    
+</call>
+```
 
 ## Format des expressions
 

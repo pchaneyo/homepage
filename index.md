@@ -6,9 +6,8 @@ layout: home
 # language: fr
 # permalink: index.html
 ---
+[English version](/en/index-en.html)
 
 [Syntaxe du langage en Markdown](/language-syntax.html)
 
-{% for lang in site.languages %}
-{{ lang }}
-{% endfor %}
+
