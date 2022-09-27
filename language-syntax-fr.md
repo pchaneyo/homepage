@@ -3,17 +3,11 @@ lang: fr
 permalink: /language-syntax.html
 layout: default
 ---
-# Langage de programmation CYK
-- Mobile ou Desktop
-- Full Stack Web Application
-- Langage orienté objet déclaratif
-- Application Exemple : https://cyk-compta.herokuapp.com
+# Syntaxe des instructions CYK
   
 ## Sommaire
-- [Langage de programmation CYK](#langage-de-programmation-cyk)
+- [Syntaxe des instructions CYK](#syntaxe-des-instructions-cyk)
   - [Sommaire](#sommaire)
-  - [Mobile ou Desktop](#mobile-ou-desktop)
-  - [Full Stack Web Application](#full-stack-web-application)
   - [Conventions typographiques](#conventions-typographiques)
   - [Types de données](#types-de-données)
   - [Déclaration de données primitives](#déclaration-de-données-primitives)
@@ -45,16 +39,7 @@ layout: default
 
 
 
-## Mobile ou Desktop
 
-- Responsive Design
-- Framework Quasar / Vue3 JS
-
-## Full Stack Web Application
-
-- Même langage pour Front End et Serveur
-- Pas de Rest API ou GraphQL à programmer
-- Base de données Postgresql
 
 ## Conventions typographiques
 
