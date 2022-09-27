@@ -6,10 +6,7 @@ layout: home
 # language: en
 # permalink: /index-en.html
 ---
-<a
-{% static_href %}
-href="/index.html"
-{% endstatic_href %}>Aller à la Version Française </a>
+<a href=" /index.html">Aller à la Version Française </a>
 
 [Language syntax](/language-syntax.html)
 

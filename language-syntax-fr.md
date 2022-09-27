@@ -30,6 +30,8 @@ layout: default
   - [Instruction Affectation](#instruction-affectation)
   - [Instruction Stringexec](#instruction-stringexec)
   - [Instruction Parallel](#instruction-parallel)
+  - [Définition de fonction](#définition-de-fonction)
+    - [Exemple : la fonction factorielle](#exemple--la-fonction-factorielle)
   - [Instruction Appel de Fonction](#instruction-appel-de-fonction)
     - [Function](#function)
     - [Methode d'Objet](#methode-dobjet)
@@ -201,6 +203,29 @@ L'expression est évaluée en tant que chaine, puis considérée comme un texte 
 Chaque instruction dans le bloc est exécuté en parallèle des autres.
 L'instruction `<parallel/>` se termine lorsque toutes les intrutions du bloc sont terminées.
 
+## Définition de fonction
+
+### Exemple : la fonction factorielle
+```xml
+    <function name="fact" returns="result: number">
+        <number name="N"/>
+        <block>
+            <if>
+                <condition><![CDATA[ N <= 0]]></condition>
+                <then>
+                    <let name="result">1</let>
+                </then>
+                <else>
+                    <number name="fact1">1</number>
+                    <call function="fact" returns="fact1">
+                        <number name="N">N - 1</number>
+                    </call>
+                    <let name="result">N * fact1</let>
+                </else>
+            </if>
+        </block>
+    </function>
+```
 ## Instruction Appel de Fonction
 
 ### Function
