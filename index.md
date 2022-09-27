@@ -6,6 +6,7 @@ layout: default
 # language: fr
 # permalink: index.html
 ---
+
 [English version](/en/index-en.html)
 
 # Cadriciel (Framework) CYK
@@ -22,6 +23,6 @@ layout: default
   
 Le cadriciel CYK s'appuie sur un langage procédural et orienté objet utilisant la syntaxe du XML
 
-[Syntaxe du langage procédural](/language-syntax.html)
+## [Syntaxe du langage procédural](/language-syntax.html)
 
 
