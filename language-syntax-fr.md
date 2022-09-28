@@ -1,7 +1,7 @@
 ---
 lang: fr
 permalink: /language-syntax.html
-layout: default
+# layout: default
 ---
 # Syntaxe des instructions CYK
   
