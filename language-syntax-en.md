@@ -1,7 +1,8 @@
 ---
 lang: en
-# permalink: /language-syntax.html
-# layout: default
+title: Syntax
+permalink: /language-syntax.html/
+layout: default
 ---
 # CYK Language syntax
 - Mobile ou Desktop

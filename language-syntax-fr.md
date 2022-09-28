@@ -1,6 +1,7 @@
 ---
 lang: fr
-permalink: /language-syntax.html
+title: Syntaxe
+permalink: /language-syntax.html/
 layout: default
 ---
 # Syntaxe des instructions CYK

@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   CYK Framework
   XML Syntax to program full stack web applications
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://pchaneyo.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://pchaneyo.github.io/home" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
 github_username:  pchaneyo
 
@@ -43,8 +43,6 @@ parallel_localization: true
 # In Jekyll 4.0 , SCSS source maps will generate improperly due to how Polyglot operates.
 sass:
   sourcemap: never
-  
-layout: default
 
 # Exclude from processing.
 # The following items will not be processed, by default.

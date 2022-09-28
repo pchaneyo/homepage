@@ -1,13 +1,15 @@
 ---
 # Feel free to add content and custom Front Matter to this file.
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
-# language: fr
+lang: fr
 permalink: /index.html
 ---
 
-[English version](/en/index-en.html)
+<a 
+{%static_href%}
+href="/en/"
+{%endstatic_href%}> English Version</a>
 
 28/09/2022 09:40
 
