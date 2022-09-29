@@ -5,10 +5,6 @@ layout: home
 lang: en
 permalink: /index.html
 ---
-<a 
-{%static_href%}
-href="/"
-{%endstatic_href%}> Version Française</a>
 
 [Language syntax](/language-syntax.html)
 

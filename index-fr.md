@@ -6,13 +6,6 @@ lang: fr
 permalink: /index.html
 ---
 
-<a 
-{%static_href%}
-href="/en/"
-{%endstatic_href%}> English Version</a>
-
-28/09/2022 09:40
-
 # Cadriciel (Framework) CYK
 ## Mobile ou Desktop
 

@@ -17,6 +17,13 @@
         </label>
 
         <div class="trigger">
+          {% if site.active_lang != "fr" %}
+          <a class="page-link" {%static_href%} href="/" {%endstatic_href%}> Français </a>
+          {% endif %}
+          {% if site.active_lang != "en" %}
+          <a class="page-link" {%static_href%} href="/en/" {%endstatic_href%}> English </a>
+          {% endif %}
+
           {%- for path in page_paths -%}
             {%- assign my_page = site.pages | where: "path", path | first -%}
             {%- if my_page.title -%}
