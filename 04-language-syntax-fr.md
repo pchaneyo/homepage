@@ -1,13 +1,13 @@
 ---
 lang: fr
-title: Syntaxe
-permalink: /language-syntax.html/
+permalink: /language-syntax/
+title: Noyau
 layout: default
 ---
-# Syntaxe des instructions CYK
+# Instructions du noyau du cadriciel
   
 ## Sommaire
-- [Syntaxe des instructions CYK](#syntaxe-des-instructions-cyk)
+- [Instructions du noyau du cadriciel](#instructions-du-noyau-du-cadriciel)
   - [Sommaire](#sommaire)
   - [Conventions typographiques](#conventions-typographiques)
   - [Types de données](#types-de-données)

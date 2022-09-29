@@ -38,6 +38,7 @@ plugins:
 
 languages: ["fr", "en"]
 default_lang: "fr"
+exclude_from_localization: ["javascript", "images", "css", "public"]
 parallel_localization: true
 
 # In Jekyll 4.0 , SCSS source maps will generate improperly due to how Polyglot operates.
@@ -63,3 +64,6 @@ sass:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+exclude:
+  deploy.sh
+
