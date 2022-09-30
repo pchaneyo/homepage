@@ -18,7 +18,7 @@ L'application est accessible sur le site d'hébergement Heroku par ce [lien](htt
 
 ## Connexion
 
-![écran de connexion](/images/scr_compta_login.png)
+<img src="/images/scr_compta_login.png" width="375"/>
 
 Utilisez les identifiants suivants :
 

@@ -21,8 +21,7 @@
 title: CYK Framework
 email: philippe.cyk@outlook.fr
 description: >- # this means to ignore newlines until "baseurl:"
-  CYK Framework
-  XML Syntax to program full stack web applications
+  A Full Stack Web Applications Framework
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pchaneyo.github.io/home" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
@@ -65,5 +64,5 @@ sass:
 #   - vendor/gems/
 #   - vendor/ruby/
 exclude:
-  deploy.sh
+  - deploy.sh
 

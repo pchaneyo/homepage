@@ -18,10 +18,13 @@
 
         <div class="trigger">
           {% if site.active_lang != "fr" %}
-          <a class="page-link" {%static_href%} href="/" {%endstatic_href%}> Français </a>
+          
+          <a class="page-link" {%static_href%} href="/" {%endstatic_href%}><img src="/images/french.png" height="30"/> Français </a>
           {% endif %}
           {% if site.active_lang != "en" %}
-          <a class="page-link" {%static_href%} href="/en/" {%endstatic_href%}> English </a>
+          
+          <a class="page-link" {%static_href%} href="/en/" {%endstatic_href%}> <img src="/images/english.png" height="20"/> English </a>
+          
           {% endif %}
 
           {%- for path in page_paths -%}
