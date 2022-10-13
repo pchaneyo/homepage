@@ -53,6 +53,8 @@ layout: default
 | ... | les points de suspension indiquent que l'élément précédent peut être répété une ou plusieurs fois |
 | { } | les accolades regroupent les éléments situés entre elles en un seul élément pour appliquer un opérateur ... ou \| |
 
+Le schéma du XML est ici : 
+[https://www.cyklang.net/cyklang.xsd](schema/cyklang.xsd)
 
 
 
