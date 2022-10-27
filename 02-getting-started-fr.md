@@ -13,7 +13,7 @@ Si vous n'êtes pas développeur, l'[introduction au logiciel de démonstration 
 Aller au [site de NodeJS](https://www.nodejs.org)
 La page de téléchargement se présente comme suit :
 
-![Page d'accueil de nodejs.org](images/nodejs_homepage.png)
+![Page d'accueil de nodejs.org](/images/nodejs_homepage.png)
 
 - Choisissez la version 16 LTS (Long Term Support)
 - Téléchargez et lancez le programme d'installation

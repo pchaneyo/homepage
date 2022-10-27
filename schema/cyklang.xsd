@@ -41,7 +41,7 @@
     <xs:complexType name="blockInstruction">
         <xs:annotation>
             <xs:documentation>
-                Instructions in a block element are executed sequentially. You can exit prematurely a block with the break instruction
+                Instructions in a block element are executed sequentially except in the parallel instruction. If not the parallel instruction, you can exit prematurely a block with the break instruction
             </xs:documentation>
         </xs:annotation>
         <xs:group ref="instruction" minOccurs="0" maxOccurs="unbounded"/>
@@ -60,9 +60,9 @@
             <xs:element name="continue" type="xs:string"/>
             <xs:element name="sleep" type="xs:string"/>
             <xs:element name="while" type="whileInstruction"/>
-            <xs:element name="loop" type="blockInstruction"/>
+            <xs:element name="loop" type="loopInstruction"/>
             <xs:element name="stringexec" type="stringexecInstruction"/>
-            <xs:element name="parallel" type="blockInstruction"/>
+            <xs:element name="parallel" type="parallelInstruction"/>
 
             <!-- server side -->
             <xs:element name="db.table" type="dbtableInstruction"/>
@@ -78,6 +78,7 @@
             <xs:element name="setmenu" type="setmenuInstruction"/>
             <xs:element name="closedialog" fixed=""/>
             <xs:element name="showdialog" type="showdialogInstruction"/>
+            <xs:element name="closeform" fixed=""/>
             <xs:element name="showform" type="showformInstruction"/>
             <xs:element name="alert" type="alertInstruction"/>
             <xs:element name="resetdialogdirty" fixed=""/>
@@ -120,29 +121,55 @@
         </xs:choice>
     </xs:group>
 
-    <xs:complexType name="booleanType" mixed="true">
+    <xs:complexType name="booleanType">
         <xs:annotation>
             <xs:documentation>boolean is a basic data type wrapping javascript boolean type</xs:documentation>
         </xs:annotation>
-        <xs:attribute name="name" type="identifier"/>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="identifier"/>
+            </xs:extension>
+        </xs:simpleContent>
     </xs:complexType>
 
-    <xs:complexType name="numberType" mixed="true">
+    <xs:complexType name="numberType">
         <xs:annotation>
             <xs:documentation>number is a basic data type wrapping javascript number type</xs:documentation>
         </xs:annotation>
-        <xs:attribute name="name" type="identifier"/>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="identifier"/>
+            </xs:extension>
+        </xs:simpleContent>
+
     </xs:complexType>
 
-    <xs:complexType name="stringType" mixed="true">
+    <xs:complexType name="stringType">
         <xs:annotation>
             <xs:documentation>
                 string is a basic data type wrapping javascript string type. To give a literal value to the string variable rather than
                 an expression which will be evaluated, use [literal] attribute
             </xs:documentation>
         </xs:annotation>
-        <xs:attribute name="name" type="identifier"/>
-        <xs:attribute name="literal" type="xs:string" fixed=""/>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="identifier"/>
+                <xs:attribute name="literal" type="xs:string" fixed=""/>
+            </xs:extension>
+        </xs:simpleContent>
+
+    </xs:complexType>
+
+    <xs:complexType name="loopInstruction">
+        <xs:annotation>
+            <xs:documentation>
+                The loop instruction block is repeated indefinitely. You can exit the loop with the break instruction,
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="blockInstruction">
+            </xs:extension>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="stringexecInstruction">
@@ -160,13 +187,30 @@
         </xs:simpleContent>
     </xs:complexType>
 
-    <xs:complexType name="datetimeType" mixed="true">
+    <xs:complexType name="parallelInstruction">
+        <xs:annotation>
+            <xs:documentation>
+                Each instruction in the parallele block starts simultaeously. The parallel instruction ends when every instruction ends.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="blockInstruction">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="datetimeType">
         <xs:annotation>
             <xs:documentation>
                 datetime is a basic data type wrapping javascript Date type.
             </xs:documentation>
         </xs:annotation>
-        <xs:attribute name="name" type="identifier"/>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="identifier"/>
+            </xs:extension>
+        </xs:simpleContent>
+
     </xs:complexType>
 
     <xs:complexType name="declareObject" mixed="true">
@@ -186,6 +230,11 @@
         <xs:annotation>
             <xs:documentation>
                 type declares a sub type from a base object data type. Member variables are declared as sub elements.
+                If attribute [literal] is unset, in a declare tag using this type, the declare tag's content is evaluated as an expression which returns that 
+                will be the initial value of the object declared.
+                If attribute [literal] is set (see template and html types), in a declare tag using this type, the new object will not be initialized.
+                The tag's content will be accessed using Typescript.
+                Attribute [literal] of type declaration should not be confused with attribute [literal] in a declare tag (e.g. string data type)
                 To declare an object of the new data type, use [type] attribute of the object element
             </xs:documentation>
         </xs:annotation>
@@ -193,6 +242,7 @@
         <xs:attribute name="name" type="identifier"/>
         <xs:attribute name="type" type="xs:string"/>
         <xs:attribute name="base" type="xs:string"/>
+        <xs:attribute name="literal" type="xs:string" fixed=""/>
     </xs:complexType>
 
 
@@ -242,7 +292,7 @@
         <xs:annotation>
             <xs:documentation>
                 if instruction is similar to a case in other languages. You can give several pairs of (condition, then block) and a final [else] block.
-                The instruction will terminate when the first condition is verified and the corresponding [then] block is executed. 
+                The instruction will terminate when the first condition is verified and the corresponding [then] block is executed. See <a href="https://www.cyklang.net/reference/#ifInstruction">Reference manual</a>
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -571,13 +621,21 @@
     </xs:complexType>
 
     <xs:complexType name="gridComponent" mixed="true">
+        <xs:annotation>
+            <xs:documentation>
+                HTML 5 CSS Grid Layout. See https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout for more information
+            </xs:documentation>
+        </xs:annotation>
         <xs:sequence>
             <xs:group ref="gridParameter" minOccurs="0" maxOccurs="unbounded"/>
             <xs:group ref="component" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="name" type="identifier"/>
-        <xs:attribute name="template-columns" type="xs:string"/>
-        <xs:attribute name="column" type="xs:string"/>
+        <xs:attribute name="grid-template-columns" type="xs:string"/>
+        <xs:attribute name="grid-template-rows" type="xs:string"/>
+        <xs:attribute name="grid-auto-rows" type="xs:string"/>
+        <xs:attribute name="grid-column" type="xs:string"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
     </xs:complexType>
 
     <xs:group name="gridParameter">
@@ -598,6 +656,7 @@
             <xs:element name="separator" type="separatorComponent"/>
             <xs:element name="tableview" type="tableviewComponent"/>
             <xs:element name="select" type="selectComponent"/>
+            <xs:element name="html" type="htmlComponent"/>
         </xs:choice>
     </xs:group>
 
@@ -625,12 +684,12 @@
         <xs:attribute name="square" type="xs:string"/>
         <xs:attribute name="autogrow" type="xs:string"/>
         <xs:attribute name="mandatory" type="xs:string"/>
-        <xs:attribute name="grid-row" type="xs:integer"/>
-        <xs:attribute name="grid-column" type="xs:integer"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attribute name="grid-column" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="inputParameter">
-        <xs:complexContent mixed="true">
+        <xs:simpleContent>
             <xs:restriction base="stringType">
                 <xs:attribute name="name" use="required">
                     <xs:simpleType>
@@ -643,7 +702,7 @@
                 </xs:attribute>
                 <xs:attribute name="literal" type="xs:string" fixed=""/>
             </xs:restriction>
-        </xs:complexContent>
+        </xs:simpleContent>
     </xs:complexType>
 
     <xs:complexType name="buttonComponent">
@@ -657,12 +716,12 @@
         <xs:attribute name="validate_dialog" fixed=""/>
         <xs:attribute name="save" fixed=""/>
         <xs:attribute name="closeform" fixed=""/>
-        <xs:attribute name="grid-row" type="xs:integer"/>
-        <xs:attribute name="grid-column" type="xs:integer"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attribute name="grid-column" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="buttonParameter">
-        <xs:complexContent mixed="true">
+        <xs:simpleContent>
             <xs:restriction base="stringType">
                 <xs:attribute name="name" use="required">
                     <xs:simpleType>
@@ -674,7 +733,7 @@
                 </xs:attribute>
                 <xs:attribute name="literal" type="xs:string" fixed=""/>
             </xs:restriction>
-        </xs:complexContent>
+        </xs:simpleContent>
     </xs:complexType>
 
     <xs:complexType name="buttonEvent">
@@ -697,8 +756,8 @@
 
     <xs:complexType name="fieldComponent">
         <xs:group ref="componentTemplate" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:attribute name="grid-row" type="xs:integer"/>
-        <xs:attribute name="grid-column" type="xs:integer"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attribute name="grid-column" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="tableviewComponent">
@@ -707,8 +766,8 @@
         <xs:attribute name="title" type="xs:string"/>
         <xs:attribute name="not-empty" fixed=""/>
         <xs:attribute name="rows-per-page" type="xs:integer"/>
-        <xs:attribute name="grid-row" type="xs:integer"/>
-        <xs:attribute name="grid-column" type="xs:integer"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attribute name="grid-column" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="selectComponent">
@@ -738,12 +797,12 @@
         <xs:attribute name="model"/>
         <xs:attribute name="label"/>
         <xs:attribute name="readonly" fixed=""/>
-        <xs:attribute name="grid-row" type="xs:integer"/>
-        <xs:attribute name="grid-column" type="xs:integer"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attribute name="grid-column" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="selectParameter">
-        <xs:complexContent mixed="true">
+        <xs:simpleContent>
             <xs:restriction base="stringType">
                 <xs:attribute name="name" use="required">
                     <xs:simpleType>
@@ -760,14 +819,14 @@
                 </xs:attribute>
                 <xs:attribute name="literal" type="xs:string" fixed=""/>
             </xs:restriction>
-        </xs:complexContent>
+        </xs:simpleContent>
     </xs:complexType>
 
     <xs:complexType name="separatorComponent">
         <xs:attribute name="dark" fixed=""/>
         <xs:attribute name="vertical" fixed=""/>
-        <xs:attribute name="grid-row" type="xs:integer"/>
-        <xs:attribute name="grid-column" type="xs:integer"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attribute name="grid-column" type="xs:string"/>
     </xs:complexType>
 
     <xs:group name="componentTemplate">
@@ -785,15 +844,34 @@
     </xs:complexType>
 
     <xs:complexType name="setmenuInstruction">
-        <xs:choice>
-            <xs:element name="object" type="declareObject"/>
-        </xs:choice>
+        <xs:annotation>
+            <xs:documentation>
+                sets the drawer menu content.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="object" type="declareObject">
+                <xs:annotation>
+                    <xs:documentation>
+                        <![CDATA[ 
+                        Each menu item is described by a string variable composed of the following parts joined by a semi-colon character : title;icon;caption;path
+                        e.g. Account table;receipt;Manage the account table; /run/accounint/account 
+                        ]]>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="showdialogInstruction">
-        <xs:choice>
+        <xs:annotation>
+            <xs:documentation>
+                show a modal dialog box. You can stack up to 6 modal dialog box.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
             <xs:element name="dialog" type="dialogComponent"/>
-        </xs:choice>
+        </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="showformInstruction">
@@ -817,7 +895,7 @@
     </xs:complexType>
 
     <xs:complexType name="sendeventParameter">
-        <xs:complexContent mixed="true">
+        <xs:simpleContent>
             <xs:restriction base="stringType">
                 <xs:attribute name="name">
                     <xs:simpleType>
@@ -828,7 +906,7 @@
                     </xs:simpleType>
                 </xs:attribute>
             </xs:restriction>
-        </xs:complexContent>
+        </xs:simpleContent>
     </xs:complexType>
 
     <xs:complexType name="toolbarComponent" mixed="true">
@@ -836,6 +914,15 @@
             <xs:group ref="component" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="name" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="htmlComponent">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="literal" type="xs:string" fixed=""/>
+                <xs:attribute name="href" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
     </xs:complexType>
 
 </xs:schema>

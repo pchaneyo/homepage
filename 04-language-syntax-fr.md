@@ -1,7 +1,7 @@
 ---
 lang: fr
-permalink: /language-syntax/
-title: Noyau
+permalink: /reference/
+title: Référence
 layout: default
 ---
 # Instructions du noyau du cadriciel
@@ -104,9 +104,10 @@ Le schéma du XML est ici :
 
 ## Instructions de Contrôle
 
+<a name="ifInstruction"></a>
 ### Instruction Conditionelle
 
-*conditional_instruction :*   
+*conditional_instruction :* 
 
 ```xml
 <if>   
@@ -127,7 +128,7 @@ Le schéma du XML est ici :
   ]    
 </if>
 ```
-
+<a name="whileInstruction"></a>
 ### Instruction While
 
 *while_instruction :*
@@ -144,7 +145,7 @@ Le schéma du XML est ici :
 Sortie de boucle par `<break/>`
 Itération suivante par '<continue/>`
 
-
+<a name="loopInstruction"></a>
 ### Instruction Loop
 *loop_instruction :* 
 ```xml
@@ -153,6 +154,7 @@ Itération suivante par '<continue/>`
 </loop>
 ```
 
+<a name="breakInstruction"></a>
 ### Instruction break
 *break_instruction :*
 ```xml
@@ -164,6 +166,7 @@ Si *expression* est présente, elle est évaluée
 Si le résultat est équivalent à VRAI, le programme quitte le bloc en cours
 Si *expression* est absente, le programme quitte le bloc en cours
  
+ <a name="setInstruction"></a>
 ## Instruction Affectation
 
 *set_instruction :*
@@ -173,6 +176,7 @@ Si *expression* est absente, le programme quitte le bloc en cours
 ```
 
 Les noms de balise `set` et `let` ont la même signification
+<a name="stringexecInstruction"></a>
 ## Instruction Stringexec
 
 ```xml
@@ -180,7 +184,7 @@ Les noms de balise `set` et `let` ont la même signification
 ```
 L'expression est évaluée en tant que chaine, puis considérée comme un texte de programme qui est exécuté
 
-
+<a name="parallelInstruction"></a>
 ## Instruction Parallel
 
 ```xml
