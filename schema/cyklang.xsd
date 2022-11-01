@@ -292,7 +292,7 @@
         <xs:annotation>
             <xs:documentation>
                 if instruction is similar to a case in other languages. You can give several pairs of (condition, then block) and a final [else] block.
-                The instruction will terminate when the first condition is verified and the corresponding [then] block is executed. See <a href="https://www.cyklang.net/reference/#ifInstruction">Reference manual</a>
+                The instruction will terminate when the first condition is verified and the corresponding [then] block is executed. See https://www.cyklang.net/reference/#ifInstruction
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -335,7 +335,7 @@
     <xs:complexType name="whileInstruction">
         <xs:annotation>
             <xs:documentation>
-                classic while control instruction
+                classic while control instruction. See https://www.cyklang.net/reference/#whileInstruction
             </xs:documentation>
         </xs:annotation>
         <xs:group ref="conditionThen"/>
@@ -356,6 +356,7 @@
         </xs:annotation>
         <xs:group ref="db.tableElement" minOccurs="1" maxOccurs="unbounded"/>
         <xs:attribute name="name" type="identifier"/>
+        <xs:attribute name="description" type="xs:string"/>
     </xs:complexType>
 
 
@@ -411,8 +412,11 @@
                     <xs:enumeration value="varchar(30)"></xs:enumeration>
                     <xs:enumeration value="varchar(50)"></xs:enumeration>
                     <xs:enumeration value="varchar(255)"></xs:enumeration>
+                    <xs:enumeration value="varchar(1024)"></xs:enumeration>
+                    <xs:enumeration value="varchar(2048)"></xs:enumeration>
                     <xs:enumeration value="text"></xs:enumeration>
                     <xs:enumeration value="date"></xs:enumeration>
+                    <xs:enumeration value="bytea"></xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -657,6 +661,7 @@
             <xs:element name="tableview" type="tableviewComponent"/>
             <xs:element name="select" type="selectComponent"/>
             <xs:element name="html" type="htmlComponent"/>
+            <xs:element name="qimg" type="qimgComponent"/>
         </xs:choice>
     </xs:group>
 
@@ -768,6 +773,7 @@
         <xs:attribute name="rows-per-page" type="xs:integer"/>
         <xs:attribute name="grid-row" type="xs:string"/>
         <xs:attribute name="grid-column" type="xs:string"/>
+        <xs:attribute name="template" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="selectComponent">
@@ -922,6 +928,31 @@
                 <xs:attribute name="literal" type="xs:string" fixed=""/>
                 <xs:attribute name="href" type="xs:string"/>
             </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="qimgComponent">
+        <xs:sequence>
+            <xs:element name="string" type="qimgParameter" minOccurs="0" maxOccurs="2"/>
+            <xs:element name="object" type="declareObject"/>
+        </xs:sequence>
+
+        <xs:attribute name="model" type="xs:string"/>
+        <xs:attribute name="label" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="qimgParameter">
+        <xs:simpleContent>
+            <xs:restriction base="stringType">
+                <xs:attribute name="name" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="identifier">
+                            <xs:enumeration value="table_name"/>
+                            <xs:enumeration value="field_name"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
         </xs:simpleContent>
     </xs:complexType>
 

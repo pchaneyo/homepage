@@ -54,7 +54,7 @@ layout: default
 | { } | les accolades regroupent les éléments situés entre elles en un seul élément pour appliquer un opérateur ... ou \| |
 
 Le schéma du XML est ici : 
-[https://www.cyklang.net/cyklang.xsd](schema/cyklang.xsd)
+[https://www.cyklang.net/schema/cyklang.xsd](/schema/cyklang.xsd)
 
 
 

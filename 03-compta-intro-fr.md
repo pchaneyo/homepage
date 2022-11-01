@@ -6,7 +6,7 @@ permalink: /compta-intro/
 ---
 # Démo Compta
 
-L'application est accessible sur le site d'hébergement Heroku par ce [lien](https://cyk-compta.herokuapp.com)
+L'application est accessible sur [https://demo.cyklang.net](https://demo.cyklang.net)
 
 ## Sommaire
 
