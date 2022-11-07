@@ -103,7 +103,9 @@
             <xs:element name="form" type="formComponent"/>
             <xs:element name="dialog" type="dialogComponent"/>
             <xs:group ref="component"/>
-
+            <!-- server only -->
+            <xs:element name="request" type="requestObject"/>
+            <xs:element name="response" type="responseObject"/>
         </xs:choice>
     </xs:group>
 
@@ -954,6 +956,26 @@
                 </xs:attribute>
             </xs:restriction>
         </xs:simpleContent>
+    </xs:complexType>
+
+    <!-- server side only objects -->
+
+    <xs:complexType name="requestObject">
+        <xs:annotation>
+            <xs:documentation>
+                Only on .cyk service page module, in the parameters of [get] function. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="name"/>
+    </xs:complexType>
+
+    <xs:complexType name="responseObject">
+        <xs:annotation>
+            <xs:documentation>
+                Only on .cyk service page module, in the parameters of [get] function.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="name"/>
     </xs:complexType>
 
 </xs:schema>

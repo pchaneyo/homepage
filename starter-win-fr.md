@@ -3,27 +3,32 @@ lang: fr
 layout: default
 permalink: /starter-win/
 ---
-# Pour démarrer sous Windows
+# Installer l'environnement de développement sous Windows
 
-- Après avoir installé les logiciels pré-requis, nous installons avec Node/NPM un CLI (Command Line Interface) ou interface en ligne de commande regroupé dans une commande unique `cyk`.
+Nous allons installer sur le poste de travail une mini application dénommée `cyk-demo`. Cette application gère une base de données d'acteurs et de films.
 
-- Puis en utilisant Git, nous clonons un projet de démonstration du langage consistant à gérer une base de données de films et d'acteurs.
+Les étapes principales sont les suivantes : 
 
-- Docker nous permettra de faire fonctionner localement un serveur de base de données Postgresql et un serveur NodeJS.
+1 - Télécharger le code source `cyk-demo` avec le logiciel Git
 
-- Enfin le code source sera édité avec Visual Studio Code mais n'importe quel éditeur adapté à l'édition de code XML peut convenir.
+2 - Installez les serveurs en local avec le logiciel Docker
 
-## Etape 1 -  Installer les logiciels pré-requis
+3 - Installer l'application `cyk-demo` avec l'outil en ligne de commande `cyk`
 
-Installer si ce n'est déja fait les logiciels pré-requis : 
-  - [Git pour Windows](#install_git)
-  - [NodeJS](#install_nodejs)
-  - [Docker Desktop](#install_docker)
-  - [Visual Studio Code](#install_code)
-  
- Pour plus de détails sur l'installation de ces logiciels [en fin de ce document](#prerequisite)
+## Etape 1 - Télécharger le code source `cyk-demo` avec Git
 
-## Etape 2 - Créer un dossier disque hébergeant l'application
+<a name="install_git"></a>
+
+### Etape 1.1 Installer Git pour Windows
+
+Aller au [site de téléchargement de Git](https://git-scm.com)
+La page de téléchargement devrait se présenter ainsi :
+
+![Page de téléchargement de Git pour Windows](/images/git_download_win.png)
+
+Téléchargez et installer Git pour Windows
+
+### Etape 1.2 - Créer un dossier disque hébergeant l'application
 
 Positionnez-vous au préalable dans le dossier où vous souhaitez créer le dossier application qui portera le nom de `cyk-demo`
 
@@ -38,17 +43,40 @@ Receiving objects: 100% (19/19), 10.30 MiB | 3.99 MiB/seused 0
 Receiving objects: 100% (19/19), 12.94 MiB | 4.69 MiB/s, done.
 Resolving deltas: 100% (6/6), done.
 ```
+## Etape 2 - Installez les serveurs en local avec le logiciel Docker
 
-## Etape 3 - Installer la commande cyk par NPM
+<a name="install_nodejs"></a>
 
-### Positionnez-vous d'abord dans le dossier `cyk-demo`:
+### Etape 2.1 Installer NodeJS
+
+Aller au [site de NodeJS](https://www.nodejs.org)
+La page de téléchargement se présente comme suit :
+
+![Page d'accueil de nodejs.org](/images/nodejs_homepage.png)
+
+- Choisissez la version 16 LTS (Long Term Support)
+- Téléchargez et lancez le programme d'installation
+- Il n'est pas nécessaire d'installer l'option pour compiler les modules natifs
+  
+Ouvrez un terminal et tapez la commande
+
+```console
+C:\Users\phili> node -v
+
+v16.11.0
+```
+Cela devrait afficher la version du logiciel Node installé.
+
+### Etape 2.2 - Installer la commande cyk par NPM
+
+#### Positionnez-vous d'abord dans le dossier `cyk-demo`:
 
 ```console
 C:\Users\john> cd cyk-demo
 
 C:\Users\john\cyk-demo>
 ```
-### Installez ensuite la commande cyk avec l'outil NPM
+#### Installez ensuite la commande cyk avec l'outil NPM
 
 ```console
 C:\Users\john\cyk-demo> npm install @cyklang/cli -g
@@ -95,25 +123,54 @@ Commands:
 
 ```
 
-## Etape 4 - Initialisez les variables d'environnement avec la commande cyk init
+
+<a name="install_docker"></a>
+
+### Etape 2.3 Installer Docker Desktop
+
+Aller sur le [site de Docker](https://www.docker.com) :
+
+![Page d'accueil de Docker](/images/docker_homepage.png)
+
+
+Téléchargez et installez Docker Desktop
+Après la procédure d'installation, l'ordinateur doit redémarrer pour terminer la configuration de l'environnement.
+
+
+### Etape 2.4 - Initialisez les variables d'environnement avec la commande `cyk init`
 
 ```console
 C:\Users\john\cyk-demo> cyk init
-
+? Postgresql Port 5432
+? NodeJS Port 3000
+? Admin User Login cyk
+? Admin User Password cyk
+? Admin Use Email my-email@my-domain
+? confirm: Yes
 created .env
 created docker-compose.yml
+
 ```
+
+`cyk init` demande interactivement les paramètres suivants :
+- Le port d'écoute du serveur de base de données Postgresql
+- Le port d'écoute du serveur Node
+- L'identifiant de l'utilisateur administrateur
+- Le mot de passe de cet utilisateur
+- L'adresse email de cet utilisateur
+
+
 
 La commande `cyk init` crée dans le répertoire courant :
 - le fichier .env 
 - le fichier docker-compose.yml
 
-## Etape 5 - Démarrez les containers Docker
+### Etape 2.5 - Démarrez les containers Docker
 
-### Lancez d'abord Docker Desktop
+#### Lancez d'abord Docker Desktop
 
 
-### Lancez Docker Compose
+#### Lancez Docker Compose
 
 ```console
 C:\Users\john\cyk-demo> docker compose up -d
@@ -131,9 +188,9 @@ Si vous voyez l'écran suivant, bravo ! Vous avez correctement installé les con
 
 ![Index par défaut](/images/index_default.png)
 
-## Etape 6 - Uploader les modules XML
+## Etape 3 -  Installer l'application `cyk-demo` avec l'outil en ligne de commande `cyk`
 
-### Listez le contenu du dossier avec la commande DIR
+### Etape 3.1 Listez le contenu du dossier avec la commande DIR
 
 ```console
 C:\Users\john\cyk-demo> dir
@@ -159,7 +216,7 @@ C:\Users\john\cyk-demo> dir
                4 Rép(s)  47 970 877 440 octets libres
 ```
 
-### Insérez les XML dans la base de données
+### Etape 3.2 Insérez les XML dans la base de données
 
 ```console
 C:\Users\john\cyk-demo> cyk module upload db_init.xml actor_select.xml film.xml
@@ -173,7 +230,7 @@ module update film access undefined description film module
 module film updated
 ```
 
-## Etape 7 - Créez les tables et les requêtes de la base de données
+### Etape 3.3 - Créez les tables et les requêtes de la base de données
 
 ```console
 C:\Users\john\cyk-demo> cyk run db_init.xml
@@ -182,7 +239,7 @@ DBREMOTE_URL http://localhost:3000
 Module db_init has been executed
 ```
 
-## Etape 8 - Chargez les tables de la base de données
+### Etape 3.4 - Chargez les tables de la base de données
 
 ```console
 C:\Users\john\cyk-demo> cyk table import -d data actor film film_actor
@@ -190,9 +247,9 @@ C:\Users\john\cyk-demo> cyk table import -d data actor film film_actor
 
 ```
 
-## Etape 9 - Associer l'utilisateur au module film
+### Etape 3.5 - Associer l'utilisateur au module film
 
-### Lister les utilisateurs
+#### Etape 3.5.1  Lister les utilisateurs
 
 ```console
 C:\Users\john\cyk-demo> cyk user list
@@ -208,7 +265,7 @@ ID | user_name |     user_email     | user_access | user_appli | user_disable
 Number of lines : 1
 ```
 
-### Modifier le champ user_appli de l'utilisateur
+#### Etape 3.5.2  Modifier le champ user_appli de l'utilisateur
 
 ```console
 C:\Users\john\cyk-demo> cyk user update -i 1 -m film
@@ -233,60 +290,6 @@ Après la connexion, l'utilisateur cyk executera maintenant le module film
 
 ![Film module](/images/module_film_form.png)
 
-<a name="prerequisite"></a>
-# Logiciels dont l'installation est pré-requise
-
-<a name="install_git"></a>
-## Installer Git pour Windows
-
-Aller au [site de téléchargement de Git](https://git-scm.com)
-La page de téléchargement devrait se présenter ainsi :
-
-![Page de téléchargement de Git pour Windows](/images/git_download_win.png)
-
-Téléchargez et installer Git pour Windows
-
-<a name="install_nodejs"></a>
-## Installer NodeJS
-
-Aller au [site de NodeJS](https://www.nodejs.org)
-La page de téléchargement se présente comme suit :
-
-![Page d'accueil de nodejs.org](/images/nodejs_homepage.png)
-
-- Choisissez la version 16 LTS (Long Term Support)
-- Téléchargez et lancez le programme d'installation
-- Il n'est pas nécessaire d'installer l'option pour compiler les modules natifs
-  
-Ouvrez un terminal et tapez la commande
-
-```console
-C:\Users\phili> node -v
-
-v16.11.0
-```
-Cela devrait afficher la version du logiciel Node installé.
-
-
-<a name="install_docker"></a>
-## Installer Docker Desktop (Mac, Windows)
-
-Aller sur le [site de Docker](https://www.docker.com) :
-
-![Page d'accueil de Docker](/images/docker_homepage.png)
-
-
-Téléchargez et installez Docker Desktop
-Après la procédure d'installation, l'ordinateur doit redémarrer pour terminer la configuration de l'environnement.
-
-<a name="install_code"></a>
-## Installer Visual Studio Code
-
-Aller sur le [site de visual studio code](https://code.visualstudio.com/)
-
-![Accueil Visual Studio Code](/images/vsc_homepage.png)
-
-Téléchargez et installez la dernière version stable de Visual Studio Code
 
 
 
