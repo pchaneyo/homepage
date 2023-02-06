@@ -287,6 +287,7 @@
         </xs:sequence>
         <xs:attribute name="name" type="identifier"/>
         <xs:attribute name="returns" type="xs:string"/>
+        <xs:attribute name="synchronized" type="xs:string"/>
     </xs:complexType>
 
 
@@ -637,9 +638,20 @@
             <xs:group ref="component" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="name" type="identifier"/>
+
+        <xs:attribute name="grid" type="xs:string"/>
+        <xs:attribute name="grid-template-areas" type="xs:string"/>
         <xs:attribute name="grid-template-columns" type="xs:string"/>
         <xs:attribute name="grid-template-rows" type="xs:string"/>
         <xs:attribute name="grid-auto-rows" type="xs:string"/>
+        <xs:attribute name="grid-auto-columns" type="xs:string"/>
+        <xs:attribute name="grid-auto-flow" type="xs:string"/>
+
+        <xs:attribute name="grid-area" type="xs:string"/>
+        <xs:attribute name="grid-column-start" type="xs:string"/>
+        <xs:attribute name="grid-column-end" type="xs:string"/>
+        <xs:attribute name="grid-row-start" type="xs:string"/>
+        <xs:attribute name="grid-row-end" type="xs:string"/>
         <xs:attribute name="grid-column" type="xs:string"/>
         <xs:attribute name="grid-row" type="xs:string"/>
     </xs:complexType>
@@ -691,8 +703,16 @@
         <xs:attribute name="square" type="xs:string"/>
         <xs:attribute name="autogrow" type="xs:string"/>
         <xs:attribute name="mandatory" type="xs:string"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+
+        <xs:attribute name="grid-area" type="xs:string"/>
+        <xs:attribute name="grid-column-start" type="xs:string"/>
+        <xs:attribute name="grid-column-end" type="xs:string"/>
+        <xs:attribute name="grid-row-start" type="xs:string"/>
+        <xs:attribute name="grid-row-end" type="xs:string"/>
         <xs:attribute name="grid-column" type="xs:string"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
+
+        <xs:attribute name="hidden" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="inputParameter">
@@ -723,8 +743,14 @@
         <xs:attribute name="validate_dialog" fixed=""/>
         <xs:attribute name="save" fixed=""/>
         <xs:attribute name="closeform" fixed=""/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+
+        <xs:attribute name="grid-area" type="xs:string"/>
+        <xs:attribute name="grid-column-start" type="xs:string"/>
+        <xs:attribute name="grid-column-end" type="xs:string"/>
+        <xs:attribute name="grid-row-start" type="xs:string"/>
+        <xs:attribute name="grid-row-end" type="xs:string"/>
         <xs:attribute name="grid-column" type="xs:string"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="buttonParameter">
@@ -763,8 +789,14 @@
 
     <xs:complexType name="fieldComponent">
         <xs:group ref="componentTemplate" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+
+        <xs:attribute name="grid-area" type="xs:string"/>
+        <xs:attribute name="grid-column-start" type="xs:string"/>
+        <xs:attribute name="grid-column-end" type="xs:string"/>
+        <xs:attribute name="grid-row-start" type="xs:string"/>
+        <xs:attribute name="grid-row-end" type="xs:string"/>
         <xs:attribute name="grid-column" type="xs:string"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="tableviewComponent">
@@ -773,8 +805,15 @@
         <xs:attribute name="title" type="xs:string"/>
         <xs:attribute name="not-empty" fixed=""/>
         <xs:attribute name="rows-per-page" type="xs:integer"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+ 
+        <xs:attribute name="grid-area" type="xs:string"/>
+        <xs:attribute name="grid-column-start" type="xs:string"/>
+        <xs:attribute name="grid-column-end" type="xs:string"/>
+        <xs:attribute name="grid-row-start" type="xs:string"/>
+        <xs:attribute name="grid-row-end" type="xs:string"/>
         <xs:attribute name="grid-column" type="xs:string"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
+
         <xs:attribute name="template" type="xs:string"/>
     </xs:complexType>
 
@@ -805,8 +844,14 @@
         <xs:attribute name="model"/>
         <xs:attribute name="label"/>
         <xs:attribute name="readonly" fixed=""/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+                
+        <xs:attribute name="grid-area" type="xs:string"/>
+        <xs:attribute name="grid-column-start" type="xs:string"/>
+        <xs:attribute name="grid-column-end" type="xs:string"/>
+        <xs:attribute name="grid-row-start" type="xs:string"/>
+        <xs:attribute name="grid-row-end" type="xs:string"/>
         <xs:attribute name="grid-column" type="xs:string"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="selectParameter">
@@ -833,8 +878,14 @@
     <xs:complexType name="separatorComponent">
         <xs:attribute name="dark" fixed=""/>
         <xs:attribute name="vertical" fixed=""/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+
+        <xs:attribute name="grid-area" type="xs:string"/>
+        <xs:attribute name="grid-column-start" type="xs:string"/>
+        <xs:attribute name="grid-column-end" type="xs:string"/>
+        <xs:attribute name="grid-row-start" type="xs:string"/>
+        <xs:attribute name="grid-row-end" type="xs:string"/>
         <xs:attribute name="grid-column" type="xs:string"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
     </xs:complexType>
 
     <xs:group name="componentTemplate">
