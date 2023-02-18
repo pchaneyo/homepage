@@ -6,7 +6,14 @@ permalink: /compta-intro/
 ---
 # Démo Compta
 
-L'application est accessible sur [https://demo.cyklang.net](https://demo.cyklang.net)
+L'application de démonstration Comptabilité est accessible sur :
+
+[https://demo.cyklang.net](https://demo.cyklang.net)
+
+Nous mettons aussi à votre disposition une application de gestion de films et d'acteurs avec une interface plus grand public et qui sert de base au tutoriel destiné aux développeurs :
+
+[https://demo.cyklang.net/spa/#/run/film](https://demo.cyklang.net/spa/#/run/film)
+
 
 ## Sommaire
 

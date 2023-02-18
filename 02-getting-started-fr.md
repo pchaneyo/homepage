@@ -9,12 +9,15 @@ permalink: /getting-started/
 Si vous voulez voir un aperçu de l'expérience utilisateur permise par le framework CYK, dirigez-vous plutôt vers l'[introduction au logiciel de démonstration cyk-compta](/compta-intro/) qui décrit l'ergonomie de l'interface dans un contexte professionnel avec une mini application de comptabilité.
 
 Si vous êtes interessé par l'expérience du développeur, alors vous êtes au bon endroit. Pour nous concentrer sur la chaine de développement, nous utiliserons une application plus simple que la comptabilité mais ce ne sera pas non plus le trivial 'Hello World' pour que nous puissions couvrir les différents aspects d'une véritable application.
+
 Nous allons gérer une base de données cinématographiques contenant simplement 3 tables :
 - la table des acteurs
 - la table des films
 - la table des liens entre les films et les acteurs
 
+Vous pouvez tester l'application obtenue sur [https://demo.cyklang.net/spa/#/run/film](https://demo.cyklang.net/spa/#/run/film)
 
+avec le login *compta* et le mot de passe *bilité*
 
 
 ## Installer l'environnement de développement
