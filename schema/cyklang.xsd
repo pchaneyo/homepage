@@ -641,6 +641,7 @@
 
         <xs:attribute name="grid" type="xs:string"/>
         <xs:attribute name="grid-template-areas" type="xs:string"/>
+        <xs:attribute name="grid-template" type="xs:string"/>
         <xs:attribute name="grid-template-columns" type="xs:string"/>
         <xs:attribute name="grid-template-rows" type="xs:string"/>
         <xs:attribute name="grid-auto-rows" type="xs:string"/>
@@ -676,6 +677,7 @@
             <xs:element name="select" type="selectComponent"/>
             <xs:element name="html" type="htmlComponent"/>
             <xs:element name="qimg" type="qimgComponent"/>
+            <xs:element name="form" type="formComponent"/>
         </xs:choice>
     </xs:group>
 
@@ -980,6 +982,14 @@
             <xs:extension base="xs:string">
                 <xs:attribute name="literal" type="xs:string" fixed=""/>
                 <xs:attribute name="href" type="xs:string"/>
+
+                <xs:attribute name="grid-area" type="xs:string"/>
+                <xs:attribute name="grid-column-start" type="xs:string"/>
+                <xs:attribute name="grid-column-end" type="xs:string"/>
+                <xs:attribute name="grid-row-start" type="xs:string"/>
+                <xs:attribute name="grid-row-end" type="xs:string"/>
+                <xs:attribute name="grid-column" type="xs:string"/>
+                <xs:attribute name="grid-row" type="xs:string"/>               
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
@@ -992,6 +1002,14 @@
 
         <xs:attribute name="model" type="xs:string"/>
         <xs:attribute name="label" type="xs:string"/>
+
+        <xs:attribute name="grid-area" type="xs:string"/>
+        <xs:attribute name="grid-column-start" type="xs:string"/>
+        <xs:attribute name="grid-column-end" type="xs:string"/>
+        <xs:attribute name="grid-row-start" type="xs:string"/>
+        <xs:attribute name="grid-row-end" type="xs:string"/>
+        <xs:attribute name="grid-column" type="xs:string"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="qimgParameter">
