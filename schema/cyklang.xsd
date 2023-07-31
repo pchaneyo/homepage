@@ -118,6 +118,15 @@
             <xs:element name="object" type="declareObject"/>
             <xs:element name="function" type="function_method"/>
             <xs:element name="type" type="typeType"/>
+            <xs:element name="module_object" type="moduleObject"/>
+            <xs:element name="moduleobject" type="moduleObject"/>
+            <!-- browser only -->
+            <xs:element name="form" type="formComponent"/>
+            <xs:element name="dialog" type="dialogComponent"/>
+            <xs:group ref="component"/>
+            <!-- server only -->
+            <xs:element name="request" type="requestObject"/>
+            <xs:element name="response" type="responseObject"/>
 
             <xs:element name="method" type="function_method"/>
         </xs:choice>
@@ -248,12 +257,12 @@
     </xs:complexType>
 
 
-    <xs:complexType name="moduleObject">
+    <xs:complexType name="moduleObject" mixed="true">
         <xs:annotation>
             <xs:documentation>
-                creates an object by instantiating a module whose name is given by the [module] attribute.
-                If the module has a constructor (method whose name is __init__) and if the constructor takes parameters, 
-                you can declare the parameter values as sub elements
+                If [module] attribute then creates an object by instantiating a module object from module whose name is given by the [module] attribute.
+                You can pass values to the constructor of the module as sub elements of this tag.
+                Without [module] attribute, tag content must be an expression that evaluates to a module object.
             </xs:documentation>
         </xs:annotation>
         <xs:group ref="declareVariable" minOccurs="0" maxOccurs="unbounded"/>
@@ -267,10 +276,15 @@
             <xs:documentation>
                 attribute [name] is the name of the variable to set or an expression evaluated to a variable.
                 The new value of the variable is determined by an expression or you can give the member variables of a new object that will be created.
+                In case of a string variable, you can set [literal] attribute to indicate that the value is not to be evaluated as an expression.
+                In case of a module object variable, you can specify [module] attribute to give the name of the module to load from the database
+    
             </xs:documentation>
         </xs:annotation>
         <xs:group ref="declareVariable_method" minOccurs="0" maxOccurs="unbounded"/>
         <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="literal" type="xs:string" fixed=""/>
+        <xs:attribute name="module" type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="function_method" mixed="true">
@@ -744,6 +758,7 @@
         <xs:attribute name="label" type="xs:string"/>
         <xs:attribute name="validate_dialog" fixed=""/>
         <xs:attribute name="save" fixed=""/>
+        <xs:attribute name="if-dirty" fixed=""/>
         <xs:attribute name="closeform" fixed=""/>
 
         <xs:attribute name="grid-area" type="xs:string"/>
@@ -807,7 +822,7 @@
         <xs:attribute name="title" type="xs:string"/>
         <xs:attribute name="not-empty" fixed=""/>
         <xs:attribute name="rows-per-page" type="xs:integer"/>
- 
+
         <xs:attribute name="grid-area" type="xs:string"/>
         <xs:attribute name="grid-column-start" type="xs:string"/>
         <xs:attribute name="grid-column-end" type="xs:string"/>
@@ -846,7 +861,7 @@
         <xs:attribute name="model"/>
         <xs:attribute name="label"/>
         <xs:attribute name="readonly" fixed=""/>
-                
+
         <xs:attribute name="grid-area" type="xs:string"/>
         <xs:attribute name="grid-column-start" type="xs:string"/>
         <xs:attribute name="grid-column-end" type="xs:string"/>
@@ -989,7 +1004,7 @@
                 <xs:attribute name="grid-row-start" type="xs:string"/>
                 <xs:attribute name="grid-row-end" type="xs:string"/>
                 <xs:attribute name="grid-column" type="xs:string"/>
-                <xs:attribute name="grid-row" type="xs:string"/>               
+                <xs:attribute name="grid-row" type="xs:string"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
