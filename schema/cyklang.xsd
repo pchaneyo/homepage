@@ -459,6 +459,8 @@
                     <xs:enumeration value="text"></xs:enumeration>
                     <xs:enumeration value="date"></xs:enumeration>
                     <xs:enumeration value="bytea"></xs:enumeration>
+                    <xs:enumeration value="json"></xs:enumeration>
+                    <xs:enumeration value="jsonb"></xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -886,6 +888,7 @@
         <xs:attribute name="model"/>
         <xs:attribute name="label"/>
         <xs:attribute name="readonly" fixed=""/>
+        <xs:attribute name="clearable" fixed=""/>
 
         <xs:attribute name="grid-area" type="xs:string"/>
         <xs:attribute name="grid-column-start" type="xs:string"/>
@@ -1058,6 +1061,7 @@
                 <xs:attribute name="name" use="required">
                     <xs:simpleType>
                         <xs:restriction base="identifier">
+                            <xs:enumeration value="visible"/>
                             <xs:enumeration value="table_name"/>
                             <xs:enumeration value="field_name"/>
                         </xs:restriction>
