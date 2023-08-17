@@ -719,6 +719,7 @@
             <xs:element name="html" type="htmlComponent"/>
             <xs:element name="qimg" type="qimgComponent"/>
             <xs:element name="form" type="formComponent"/>
+            <xs:element name="textedit" type="texteditComponent"/>
         </xs:choice>
     </xs:group>
 
@@ -1037,9 +1038,13 @@
         </xs:simpleContent>
     </xs:complexType>
 
+    <xs:complexType name="texteditComponent">
+        <xs:attribute name="model" type="xs:string"/>
+    </xs:complexType>
+
     <xs:complexType name="qimgComponent">
         <xs:sequence>
-            <xs:element name="string" type="qimgParameter" minOccurs="0" maxOccurs="2"/>
+            <xs:element name="string" type="qimgParameter" minOccurs="0" maxOccurs="3"/>
             <xs:element name="object" type="declareObject"/>
         </xs:sequence>
 
