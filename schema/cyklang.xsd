@@ -282,7 +282,7 @@
             <xs:group ref="mapKeyValue" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="name"/>
-       
+
     </xs:complexType>
 
     <xs:group name="mapKeyValue">
@@ -415,6 +415,7 @@
             <xs:element name="string" type="stringColumn"/>
             <xs:element name="datetime" type="datetimeColumn"/>
             <xs:element name="boolean" type="booleanColumn"/>
+            <xs:element name="object" type="objectColumn"/>
         </xs:choice>
     </xs:group>
 
@@ -492,6 +493,18 @@
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="boolean"></xs:enumeration>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="objectColumn">
+        <xs:attribute name="name" type="identifier"/>
+        <xs:attribute name="type">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="jsonb"></xs:enumeration>
+                    <xs:enumeration value="json"></xs:enumeration>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -1043,10 +1056,7 @@
     </xs:complexType>
 
     <xs:complexType name="qimgComponent">
-        <xs:sequence>
-            <xs:element name="string" type="qimgParameter" minOccurs="0" maxOccurs="3"/>
-            <xs:element name="object" type="declareObject"/>
-        </xs:sequence>
+        <xs:group ref="qimgParameter" minOccurs="0" maxOccurs="unbounded"/>
 
         <xs:attribute name="model" type="xs:string"/>
         <xs:attribute name="label" type="xs:string"/>
@@ -1060,7 +1070,15 @@
         <xs:attribute name="grid-row" type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="qimgParameter">
+    <xs:group name="qimgParameter">
+        <xs:choice>
+            <xs:element name="string" type="qimgStringParameter"/>
+            <xs:element name="number" type="qimgNumberParameter"/>
+            <xs:element name="object" type="declareObject"/>
+        </xs:choice>
+    </xs:group>
+
+    <xs:complexType name="qimgStringParameter">
         <xs:simpleContent>
             <xs:restriction base="stringType">
                 <xs:attribute name="name" use="required">
@@ -1069,6 +1087,21 @@
                             <xs:enumeration value="visible"/>
                             <xs:enumeration value="table_name"/>
                             <xs:enumeration value="field_name"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="qimgNumberParameter">
+        <xs:simpleContent>
+            <xs:restriction base="numberType">
+                <xs:attribute name="name" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="identifier">
+                            <xs:enumeration value="width"/>
+                            <xs:enumeration value="height"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:attribute>
