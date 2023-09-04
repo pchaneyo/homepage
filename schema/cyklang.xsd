@@ -1074,7 +1074,7 @@
         <xs:choice>
             <xs:element name="string" type="qimgStringParameter"/>
             <xs:element name="number" type="qimgNumberParameter"/>
-            <xs:element name="object" type="declareObject"/>
+            <xs:element name="object" type="qimgObjectParameter"/>
         </xs:choice>
     </xs:group>
 
@@ -1100,6 +1100,7 @@
                 <xs:attribute name="name" use="required">
                     <xs:simpleType>
                         <xs:restriction base="identifier">
+                            <xs:enumeration value="id"/>
                             <xs:enumeration value="width"/>
                             <xs:enumeration value="height"/>
                         </xs:restriction>
@@ -1108,6 +1109,20 @@
             </xs:restriction>
         </xs:simpleContent>
     </xs:complexType>
+
+    <xs:complexType name="qimgObjectParameter" mixed="true">
+        <xs:complexContent>
+            <xs:restriction base="declareObject">
+                <xs:attribute name="name" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="identifier">
+                            <xs:enumeration value="derived"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>    
 
     <!-- server side only objects -->
 
