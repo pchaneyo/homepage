@@ -608,6 +608,95 @@
         browser-only
     -->
 
+    <xs:attributeGroup name="gridParentAttributes">
+        <xs:attribute name="grid" type="xs:string"/>
+        <xs:attribute name="grid-template-areas" type="xs:string"/>
+        <xs:attribute name="grid-template" type="xs:string"/>
+        <xs:attribute name="grid-template-columns" type="xs:string"/>
+        <xs:attribute name="grid-template-rows" type="xs:string"/>
+        <xs:attribute name="grid-auto-rows" type="xs:string"/>
+        <xs:attribute name="grid-auto-columns" type="xs:string"/>
+        <xs:attribute name="grid-auto-flow" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="gridChildAttributes">
+        <xs:attribute name="grid-area" type="xs:string"/>
+        <xs:attribute name="grid-column-start" type="xs:string"/>
+        <xs:attribute name="grid-column-end" type="xs:string"/>
+        <xs:attribute name="grid-row-start" type="xs:string"/>
+        <xs:attribute name="grid-row-end" type="xs:string"/>
+        <xs:attribute name="grid-column" type="xs:string"/>
+        <xs:attribute name="grid-row" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="flexParentAttributes">
+        <xs:attribute name="flex-direction">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="row"/>
+                    <xs:enumeration value="row-reverse"/>
+                    <xs:enumeration value="column"/>
+                    <xs:enumeration value="column-reverse"/>
+                    <xs:enumeration value="inherit"/>
+                    <xs:enumeration value="initial"/>
+                    <xs:enumeration value="unset"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="flex-wrap">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="nowrap"/>
+                    <xs:enumeration value="wrap"/>
+                    <xs:enumeration value="wrap-reverse"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="flex-flow">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="(row|row-reverse|column|column-reverse|inherit|initial|unset) (nowrap|wrap|wrap-reverse)"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="justify-content">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="(center|start|end|flex-start|flex-end|left|right)"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="align-items">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="(center|start|end|flex-start|flex-end|self-start|self-end|baseline|first baseline|last baseline|safe center| unsafe center|inherit|initial|revert|revert-layer|unset)"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="align-content">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="(center|start|end|flex-start|flex-end|normal|baseline|first baseline|last baseline|space-between|space-around|space-evenly|stretch|safe center|unsafe center|inherit|initial|revert|revert-layer|unset)"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="flexChildAttributes">
+        <xs:attribute name="order" type="xs:string"/>
+        <xs:attribute name="flex-grow" type="xs:string"/>
+        <xs:attribute name="flex-shrink" type="xs:string"/>
+        <xs:attribute name="flex-basis" type="xs:string"/>
+        <xs:attribute name="flex" type="xs:string"/>
+        <xs:attribute name="align-self">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="(auto|normal|center|start|end|self-start|self-end|flex-start|flex-end|baseline|first baseline|last baseline|stretch|safe center|unsafe center|inherit|initial|unset)"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+
     <xs:complexType name="formComponent">
         <xs:complexContent>
             <xs:extension base="gridComponent">
@@ -694,23 +783,25 @@
         </xs:sequence>
         <xs:attribute name="name" type="identifier"/>
 
-        <xs:attribute name="grid" type="xs:string"/>
-        <xs:attribute name="grid-template-areas" type="xs:string"/>
-        <xs:attribute name="grid-template" type="xs:string"/>
-        <xs:attribute name="grid-template-columns" type="xs:string"/>
-        <xs:attribute name="grid-template-rows" type="xs:string"/>
-        <xs:attribute name="grid-auto-rows" type="xs:string"/>
-        <xs:attribute name="grid-auto-columns" type="xs:string"/>
-        <xs:attribute name="grid-auto-flow" type="xs:string"/>
+        <xs:attribute name="display">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="none"/>
+                    <xs:enumeration value="grid"/>
+                    <xs:enumeration value="flex"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
 
-        <xs:attribute name="grid-area" type="xs:string"/>
-        <xs:attribute name="grid-column-start" type="xs:string"/>
-        <xs:attribute name="grid-column-end" type="xs:string"/>
-        <xs:attribute name="grid-row-start" type="xs:string"/>
-        <xs:attribute name="grid-row-end" type="xs:string"/>
-        <xs:attribute name="grid-column" type="xs:string"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attributeGroup ref="gridParentAttributes"></xs:attributeGroup>
+        <xs:attributeGroup ref="gridChildAttributes"/>
+
+        <xs:attributeGroup ref="flexParentAttributes"/>
+        <xs:attributeGroup ref="flexChildAttributes"/>
+
     </xs:complexType>
+
+
 
     <xs:group name="gridParameter">
         <xs:choice>
@@ -762,13 +853,8 @@
         <xs:attribute name="autogrow" type="xs:string"/>
         <xs:attribute name="mandatory" type="xs:string"/>
 
-        <xs:attribute name="grid-area" type="xs:string"/>
-        <xs:attribute name="grid-column-start" type="xs:string"/>
-        <xs:attribute name="grid-column-end" type="xs:string"/>
-        <xs:attribute name="grid-row-start" type="xs:string"/>
-        <xs:attribute name="grid-row-end" type="xs:string"/>
-        <xs:attribute name="grid-column" type="xs:string"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attributeGroup ref="gridChildAttributes"></xs:attributeGroup>
+        <xs:attributeGroup ref="flexChildAttributes"/>
 
         <xs:attribute name="hidden" type="xs:string"/>
     </xs:complexType>
@@ -803,13 +889,8 @@
         <xs:attribute name="if-dirty" fixed=""/>
         <xs:attribute name="closeform" fixed=""/>
 
-        <xs:attribute name="grid-area" type="xs:string"/>
-        <xs:attribute name="grid-column-start" type="xs:string"/>
-        <xs:attribute name="grid-column-end" type="xs:string"/>
-        <xs:attribute name="grid-row-start" type="xs:string"/>
-        <xs:attribute name="grid-row-end" type="xs:string"/>
-        <xs:attribute name="grid-column" type="xs:string"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attributeGroup ref="gridChildAttributes"/>
+        <xs:attributeGroup ref="flexChildAttributes"/>
     </xs:complexType>
 
     <xs:complexType name="buttonParameter">
@@ -849,13 +930,8 @@
     <xs:complexType name="fieldComponent">
         <xs:group ref="componentTemplate" minOccurs="0" maxOccurs="unbounded"/>
 
-        <xs:attribute name="grid-area" type="xs:string"/>
-        <xs:attribute name="grid-column-start" type="xs:string"/>
-        <xs:attribute name="grid-column-end" type="xs:string"/>
-        <xs:attribute name="grid-row-start" type="xs:string"/>
-        <xs:attribute name="grid-row-end" type="xs:string"/>
-        <xs:attribute name="grid-column" type="xs:string"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attributeGroup ref="gridChildAttributes"/>
+        <xs:attributeGroup ref="flexChildAttributes"/>
     </xs:complexType>
 
     <xs:complexType name="tableviewComponent">
@@ -865,13 +941,8 @@
         <xs:attribute name="not-empty" fixed=""/>
         <xs:attribute name="rows-per-page" type="xs:integer"/>
 
-        <xs:attribute name="grid-area" type="xs:string"/>
-        <xs:attribute name="grid-column-start" type="xs:string"/>
-        <xs:attribute name="grid-column-end" type="xs:string"/>
-        <xs:attribute name="grid-row-start" type="xs:string"/>
-        <xs:attribute name="grid-row-end" type="xs:string"/>
-        <xs:attribute name="grid-column" type="xs:string"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attributeGroup ref="gridChildAttributes"/>
+        <xs:attributeGroup ref="flexChildAttributes"/>
 
         <xs:attribute name="template" type="xs:string"/>
     </xs:complexType>
@@ -905,13 +976,8 @@
         <xs:attribute name="readonly" fixed=""/>
         <xs:attribute name="clearable" fixed=""/>
 
-        <xs:attribute name="grid-area" type="xs:string"/>
-        <xs:attribute name="grid-column-start" type="xs:string"/>
-        <xs:attribute name="grid-column-end" type="xs:string"/>
-        <xs:attribute name="grid-row-start" type="xs:string"/>
-        <xs:attribute name="grid-row-end" type="xs:string"/>
-        <xs:attribute name="grid-column" type="xs:string"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attributeGroup ref="gridChildAttributes"/>
+        <xs:attributeGroup ref="flexChildAttributes"/>
     </xs:complexType>
 
     <xs:complexType name="selectParameter">
@@ -939,13 +1005,8 @@
         <xs:attribute name="dark" fixed=""/>
         <xs:attribute name="vertical" fixed=""/>
 
-        <xs:attribute name="grid-area" type="xs:string"/>
-        <xs:attribute name="grid-column-start" type="xs:string"/>
-        <xs:attribute name="grid-column-end" type="xs:string"/>
-        <xs:attribute name="grid-row-start" type="xs:string"/>
-        <xs:attribute name="grid-row-end" type="xs:string"/>
-        <xs:attribute name="grid-column" type="xs:string"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attributeGroup ref="gridChildAttributes"/>
+        <xs:attributeGroup ref="flexChildAttributes"/>
     </xs:complexType>
 
     <xs:group name="componentTemplate">
@@ -1070,13 +1131,8 @@
                 <xs:attribute name="literal" type="xs:string" fixed=""/>
                 <xs:attribute name="href" type="xs:string"/>
 
-                <xs:attribute name="grid-area" type="xs:string"/>
-                <xs:attribute name="grid-column-start" type="xs:string"/>
-                <xs:attribute name="grid-column-end" type="xs:string"/>
-                <xs:attribute name="grid-row-start" type="xs:string"/>
-                <xs:attribute name="grid-row-end" type="xs:string"/>
-                <xs:attribute name="grid-column" type="xs:string"/>
-                <xs:attribute name="grid-row" type="xs:string"/>
+                <xs:attributeGroup ref="gridChildAttributes"/>
+                <xs:attributeGroup ref="flexChildAttributes"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
@@ -1091,13 +1147,8 @@
         <xs:attribute name="model" type="xs:string"/>
         <xs:attribute name="label" type="xs:string"/>
 
-        <xs:attribute name="grid-area" type="xs:string"/>
-        <xs:attribute name="grid-column-start" type="xs:string"/>
-        <xs:attribute name="grid-column-end" type="xs:string"/>
-        <xs:attribute name="grid-row-start" type="xs:string"/>
-        <xs:attribute name="grid-row-end" type="xs:string"/>
-        <xs:attribute name="grid-column" type="xs:string"/>
-        <xs:attribute name="grid-row" type="xs:string"/>
+        <xs:attributeGroup ref="gridChildAttributes"/>
+        <xs:attributeGroup ref="flexChildAttributes"/>
     </xs:complexType>
 
     <xs:group name="qimgParameter">
@@ -1153,7 +1204,7 @@
                 </xs:attribute>
             </xs:restriction>
         </xs:complexContent>
-    </xs:complexType>    
+    </xs:complexType>
 
     <xs:complexType name="qimgFunctionParameter">
         <xs:complexContent>
