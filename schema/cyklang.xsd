@@ -83,6 +83,7 @@
             <xs:element name="alert" type="alertInstruction"/>
             <xs:element name="resetdialogdirty" fixed=""/>
             <xs:element name="sendevent" type="sendevent"/>
+            <xs:element name="open_window_tab" type="openWindowTabInstruction"/>
             <xs:element name="toolbar" type="toolbarComponent"/>
 
         </xs:choice>
@@ -1027,6 +1028,35 @@
         </xs:simpleContent>
     </xs:complexType>
 
+
+    <xs:complexType name="openWindowTabInstruction">
+        <xs:group ref="openWindowTabParameter" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:complexType>
+
+    <xs:group name="openWindowTabParameter">
+        <xs:sequence>
+            <xs:element name="string" type="windowTabStringParameter"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="windowTabStringParameter">
+        <xs:simpleContent>
+            <xs:restriction base="stringType">
+                <xs:attribute name="name" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="identifier">
+                            <xs:enumeration value="name"/>
+                            <xs:enumeration value="url"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:simpleContent>
+    </xs:complexType>
+
+
+
+
     <xs:complexType name="toolbarComponent" mixed="true">
         <xs:sequence>
             <xs:group ref="component" minOccurs="0" maxOccurs="unbounded"/>
@@ -1075,6 +1105,7 @@
             <xs:element name="string" type="qimgStringParameter"/>
             <xs:element name="number" type="qimgNumberParameter"/>
             <xs:element name="object" type="qimgObjectParameter"/>
+            <xs:element name="function" type="qimgFunctionParameter"/>
         </xs:choice>
     </xs:group>
 
@@ -1123,6 +1154,25 @@
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>    
+
+    <xs:complexType name="qimgFunctionParameter">
+        <xs:complexContent>
+            <xs:restriction base="function_method">
+                <xs:sequence>
+                    <!-- <xs:group ref="declareVariable" minOccurs="0" maxOccurs="unbounded"/> -->
+                    <xs:element name="block" type="blockInstruction" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="name" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="identifier">
+                            <xs:enumeration value="on_change"></xs:enumeration>
+                            <xs:enumeration value="onchange"></xs:enumeration>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
 
     <!-- server side only objects -->
 
