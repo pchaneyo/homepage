@@ -825,12 +825,29 @@
             <xs:element name="qimg" type="qimgComponent"/>
             <xs:element name="form" type="formComponent"/>
             <xs:element name="textedit" type="texteditComponent"/>
+            <xs:element name="checkbox" type="checkboxComponent"/>
         </xs:choice>
     </xs:group>
 
+    <xs:complexType name="checkboxComponent">
+        <xs:sequence>
+            <xs:group ref="inputParameter" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+
+        <xs:attribute name="model" type="xs:string"/>
+        <xs:attribute name="readonly" type="xs:string"/>
+        <xs:attribute name="disable" type="xs:string"/>
+        <xs:attribute name="label" type="xs:string"/>
+
+        <xs:attributeGroup ref="gridChildAttributes"></xs:attributeGroup>
+        <xs:attributeGroup ref="flexChildAttributes"/>
+
+        <xs:attribute name="hidden" type="xs:string"/>
+    </xs:complexType>
+
     <xs:complexType name="inputComponent">
         <xs:sequence>
-            <xs:element name="string" type="inputParameter" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:group ref="inputParameter" minOccurs="0" maxOccurs="unbounded"/>
             <xs:group ref="componentTemplate" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
 
@@ -859,7 +876,32 @@
         <xs:attribute name="hidden" type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="inputParameter">
+    <xs:group name="inputParameter">
+        <xs:choice>
+            <xs:element name="string" type="inputStringParameter"/>
+            <xs:element name="function" type="onchangeParameter"/>
+        </xs:choice>
+    </xs:group>
+
+    <xs:complexType name="onchangeParameter">
+        <xs:complexContent>
+            <xs:restriction base="function_method">
+                <xs:sequence>
+                    <xs:element name="block" type="blockInstruction" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="name" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="identifier">
+                            <xs:enumeration value="onchange"></xs:enumeration>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="inputStringParameter">
         <xs:simpleContent>
             <xs:restriction base="stringType">
                 <xs:attribute name="name" use="required">
@@ -949,27 +991,7 @@
 
     <xs:complexType name="selectComponent">
         <xs:sequence>
-            <xs:element name="string" type="selectParameter" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="object" type="declareObject" minOccurs="0"/>
-            <xs:element name="function" minOccurs="0">
-                <xs:complexType>
-                    <xs:complexContent>
-                        <xs:restriction base="function_method">
-                            <xs:sequence>
-                                <xs:group ref="declareVariable" minOccurs="0" maxOccurs="unbounded"/>
-                                <xs:element name="block" type="blockInstruction" minOccurs="1" maxOccurs="1"/>
-                            </xs:sequence>
-                            <xs:attribute name="name" use="required">
-                                <xs:simpleType>
-                                    <xs:restriction base="identifier">
-                                        <xs:enumeration value="add_function"></xs:enumeration>
-                                    </xs:restriction>
-                                </xs:simpleType>
-                            </xs:attribute>
-                        </xs:restriction>
-                    </xs:complexContent>
-                </xs:complexType>
-            </xs:element>
+            <xs:group ref="selectParameter" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="model"/>
         <xs:attribute name="label"/>
@@ -980,7 +1002,15 @@
         <xs:attributeGroup ref="flexChildAttributes"/>
     </xs:complexType>
 
-    <xs:complexType name="selectParameter">
+    <xs:group name="selectParameter">
+        <xs:choice>
+            <xs:element name="string" type="selectStringParameter"/>
+            <xs:element name="object" type="declareObject"/>
+            <xs:element name="function" type="selectFunctionParameter"/>
+        </xs:choice>
+    </xs:group>
+
+    <xs:complexType name="selectStringParameter">
         <xs:simpleContent>
             <xs:restriction base="stringType">
                 <xs:attribute name="name" use="required">
@@ -999,6 +1029,25 @@
                 <xs:attribute name="literal" type="xs:string" fixed=""/>
             </xs:restriction>
         </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="selectFunctionParameter">
+        <xs:complexContent>
+            <xs:restriction base="function_method">
+                <xs:sequence>
+                    <xs:group ref="declareVariable" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="block" type="blockInstruction" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="name" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="identifier">
+                            <xs:enumeration value="add_function"/>
+                            <xs:enumeration value="onchange"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:restriction>
+        </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="separatorComponent">
@@ -1138,8 +1187,15 @@
     </xs:complexType>
 
     <xs:complexType name="texteditComponent">
+        <xs:group ref="texteditParameter" minOccurs="0" maxOccurs="unbounded"/>
         <xs:attribute name="model" type="xs:string"/>
     </xs:complexType>
+
+    <xs:group name="texteditParameter">
+        <xs:choice>
+            <xs:element name="function" type="onchangeParameter"/>
+        </xs:choice>
+    </xs:group>
 
     <xs:complexType name="qimgComponent">
         <xs:group ref="qimgParameter" minOccurs="0" maxOccurs="unbounded"/>
