@@ -1216,7 +1216,6 @@
                 <xs:attribute name="name" use="required">
                     <xs:simpleType>
                         <xs:restriction base="identifier">
-                            <xs:enumeration value="on_change"></xs:enumeration>
                             <xs:enumeration value="onchange"></xs:enumeration>
                         </xs:restriction>
                     </xs:simpleType>
